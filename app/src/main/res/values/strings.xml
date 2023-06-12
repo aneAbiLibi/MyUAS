@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyUAS</string>
+
+    <string-array name="daftar_option">
+        <item>Jelajahi</item>
+        <item>Hubungi</item>
+        <item>Baca Data</item>
+        <item>Cek Posisi</item>
+    </string-array>
+
+</resources>
