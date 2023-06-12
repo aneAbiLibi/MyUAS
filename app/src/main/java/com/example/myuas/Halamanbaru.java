@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,32 +19,36 @@ public class Halamanbaru extends AppCompatActivity {
 
     Button OK2;
 
-    private String[] Item = {"Jelahahi","Hubungi","Baca Data","Cek Posisi"};
+    Spinner opsii;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_halamanbaru);
-        final Spinner List = findViewById(R.id.spinner);
 
-        //Inisialiasi Array Adapter dengan memasukkan String Array
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Item);
 
-        //Memasukan Adapter pada Spinner
-        List.setAdapter(adapter);
 
-        //Mengeset listener untuk mengetahui event/aksi saat item dipilih
-        List.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        OK2 = (Button) findViewById(R.id. OK2 );
+        OK2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"Saya Memesan "+adapter.getItem(i), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView adapterView) {
-
+            public void onClick(View view) {jelajahDiklik();
             }
         });
+        opsii = (Spinner) findViewById(R.id.opsii);
     }
 
+    public void jelajahDiklik() {
+        String pilihan = opsii.getSelectedItem().toString();
+        if(pilihan.equals("Jelajahi")) {
+            Intent in = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.ump.ac.id"));
+            startActivity(in);
+            Toast.makeText(this, "Wait...", Toast.LENGTH_SHORT).show();
+        } else if (pilihan.equals("Hubungi")) {
+            Intent smsan = new Intent(Intent.ACTION_VIEW, Uri.parse("smsto : 085724126979"));
+            smsan.putExtra("sms_body", "Pesan dari Aplikasi My UAS");
+            startActivity(smsan);
+            Toast.makeText(this, "Berhasil Mengirim Pesan", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
